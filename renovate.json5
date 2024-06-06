@@ -1,0 +1,29 @@
+{
+  $schema: "https://docs.renovatebot.com/renovate-schema.json",
+  extends: ["config:recommended"],
+  rebaseWhen: "auto",
+  packageRules: [
+    {
+      matchFileNames: ["go.mod"],
+      // https://docs.renovatebot.com/semantic-commits/#changing-the-semantic-commit-type
+      // PR の prefix に使われる。
+      extends: [":semanticCommitTypeAll(ci)"],
+      // https://docs.renovatebot.com/configuration-options/#groupname
+      groupName: "go dependencies",
+      // https://docs.renovatebot.com/configuration-options/#groupslug
+      // branch 名に使われる。
+      groupSlug: "go-mod-updates",
+    },
+    {
+      matchFileNames: ["!go.mod"],
+      extends: [":semanticCommitTypeAll(ci)"],
+      groupName: "updates other than go",
+      groupSlug: "other-updates",
+    },
+  ],
+  postUpdateOptions: ["gomodTidy"],
+  constraints: {
+    go: "1.19",
+  },
+  branchPrefix: "renovate/",
+}
