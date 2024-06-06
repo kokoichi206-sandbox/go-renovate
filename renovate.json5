@@ -4,7 +4,7 @@
   rebaseWhen: "auto",
   packageRules: [
     {
-      matchFileNames: ["go.mod"],
+      matchFileNames: ["go.mod", "go.sum"],
       // https://docs.renovatebot.com/semantic-commits/#changing-the-semantic-commit-type
       // PR の prefix に使われる。
       extends: [":semanticCommitTypeAll(ci)"],
@@ -15,7 +15,7 @@
       groupSlug: "go-mod-updates",
     },
     {
-      matchFileNames: ["!go.mod"],
+      matchFileNames: ["!go.mod", "!go.sum"],
       extends: [":semanticCommitTypeAll(ci)"],
       groupName: "updates other than go",
       groupSlug: "other-updates",
